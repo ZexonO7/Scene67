@@ -52,13 +52,23 @@ const Index = () => {
         className="relative z-10 p-6"
       >
         <div className="flex items-center justify-center gap-3">
-          <Waves className="w-8 h-8 text-secondary animate-float" />
-          <h1 className="font-display font-bold text-4xl md:text-5xl text-primary text-glow-orange">
+          <motion.div
+            animate={{ rotate: [0, -10, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Waves className="w-8 h-8 text-secondary" />
+          </motion.div>
+          <h1 className="font-display font-bold text-4xl md:text-5xl text-primary text-glow-orange" style={{
+            transform: 'rotate(-1deg)',
+            textShadow: '3px 3px 0px rgba(0,0,0,0.1)'
+          }}>
             ScrapTok
           </h1>
         </div>
-        <p className="text-center text-foreground/70 mt-2 font-display">
-          Ride the Summer of Making 🌊
+        <p className="text-center text-foreground/70 mt-2 font-display tracking-wide" style={{
+          transform: 'rotate(0.5deg)'
+        }}>
+          ride the summer of making 🌊✨
         </p>
       </motion.header>
 

@@ -30,14 +30,17 @@ const EmojiReactions = ({ reactions, onReact }: EmojiReactionsProps) => {
   };
 
   return (
-    <div className="flex justify-around items-center gap-4 px-6 py-4 bg-card/50 backdrop-blur-md rounded-3xl border border-border/30">
-      {(Object.keys(reactionEmojis) as ReactionType[]).map((type) => (
+    <div className="flex justify-around items-center gap-4 px-6 py-4 bg-card/50 backdrop-blur-md rounded-3xl border-2 border-border/40 shadow-[6px_6px_0px_0px_rgba(0,0,0,0.1)]" style={{
+      borderRadius: `${25 + Math.random() * 8}px ${28 + Math.random() * 8}px ${26 + Math.random() * 8}px ${24 + Math.random() * 8}px`
+    }}>
+      {(Object.keys(reactionEmojis) as ReactionType[]).map((type, index) => (
         <motion.button
           key={type}
-          whileHover={{ scale: 1.2, rotate: 10 }}
-          whileTap={{ scale: 0.9, rotate: -10 }}
+          whileHover={{ scale: 1.2, rotate: Math.random() * 20 - 10 }}
+          whileTap={{ scale: 0.9, rotate: Math.random() * -20 + 10 }}
           onClick={() => handleReaction(type)}
           className="flex flex-col items-center gap-1"
+          style={{ transform: `rotate(${(index % 2 === 0 ? 1 : -1) * Math.random() * 3}deg)` }}
         >
           <motion.span
             className="text-3xl"

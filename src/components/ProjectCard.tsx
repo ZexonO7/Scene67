@@ -20,15 +20,21 @@ const ProjectCard = ({ project, onReact }: ProjectCardProps) => {
     });
   };
 
+  // Random rotation for organic feel
+  const randomRotation = Math.random() * 4 - 2; // -2 to 2 degrees
+  
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.9, rotate: randomRotation }}
+      animate={{ opacity: 1, scale: 1, rotate: randomRotation }}
+      exit={{ opacity: 0, scale: 0.9, rotate: 0 }}
       className="relative w-full h-full flex flex-col"
+      style={{ rotate: randomRotation }}
     >
       {/* Media Container */}
-      <div className="relative flex-1 rounded-3xl overflow-hidden border-4 border-primary shadow-2xl">
+      <div className="relative flex-1 rounded-[2rem] overflow-hidden border-[3px] border-primary shadow-[8px_8px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,0.15)] transition-all" style={{ 
+        borderRadius: `${30 + Math.random() * 10}px ${35 + Math.random() * 10}px ${32 + Math.random() * 10}px ${28 + Math.random() * 10}px`
+      }}>
         <img
           src={project.mediaUrl}
           alt={project.title}
@@ -41,12 +47,16 @@ const ProjectCard = ({ project, onReact }: ProjectCardProps) => {
         {/* Trending Badge */}
         {project.isTrending && (
           <motion.div
-            initial={{ x: -100 }}
-            animate={{ x: 0 }}
-            className="absolute top-6 left-6 flex items-center gap-2 px-4 py-2 rounded-full gradient-sunset"
+            initial={{ x: -100, rotate: -5 }}
+            animate={{ x: 0, rotate: Math.random() * 6 - 3 }}
+            className="absolute top-6 left-6 flex items-center gap-2 px-4 py-2 rounded-full gradient-sunset border-2 border-background/20"
+            style={{
+              transform: `rotate(${Math.random() * 4 - 2}deg)`,
+              boxShadow: '4px 4px 0px rgba(0,0,0,0.1)'
+            }}
           >
             <Sparkles className="w-4 h-4 animate-pulse-glow" />
-            <span className="font-display font-bold text-sm">HOT RIGHT NOW</span>
+            <span className="font-display font-bold text-sm tracking-wide">HOT RN</span>
           </motion.div>
         )}
         
@@ -94,10 +104,13 @@ const ProjectCard = ({ project, onReact }: ProjectCardProps) => {
           >
             <Button
               onClick={handleRemix}
-              className="flex items-center gap-2 px-6 py-6 rounded-full gradient-lime font-display font-bold text-lime-foreground hover:scale-105 transition-transform"
+              className="flex items-center gap-2 px-6 py-6 rounded-full gradient-lime font-display font-bold text-lime-foreground hover:scale-105 hover:rotate-2 transition-all border-2 border-background/30 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
+              style={{
+                transform: `rotate(${Math.random() * 2 - 1}deg)`
+              }}
             >
               <GitFork className="w-5 h-5" />
-              Remix
+              remix this!
             </Button>
           </motion.div>
         </div>
