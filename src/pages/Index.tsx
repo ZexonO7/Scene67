@@ -53,7 +53,7 @@ const Index = () => {
       >
         <div className="flex items-center justify-center gap-3">
           <Waves className="w-8 h-8 text-secondary animate-float" />
-          <h1 className="font-display font-bold text-4xl md:text-5xl text-glow-orange gradient-sunset bg-clip-text text-transparent">
+          <h1 className="font-display font-bold text-4xl md:text-5xl text-primary text-glow-orange">
             ScrapTok
           </h1>
         </div>
