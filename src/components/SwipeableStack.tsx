@@ -15,12 +15,13 @@ const SwipeableStack = ({ projects, onReact }: SwipeableStackProps) => {
   const opacity = useTransform(y, [-300, 0, 300], [0, 1, 0]);
 
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    const threshold = 100;
+    const threshold = 50; // Lowered threshold for easier swiping
     
     if (Math.abs(info.offset.y) > threshold) {
       if (info.offset.y < 0 && currentIndex < projects.length - 1) {
         // Swiped up - next project
         setDirection('up');
+        y.set(0); // Reset position
         setTimeout(() => {
           setCurrentIndex(currentIndex + 1);
           setDirection(null);
@@ -28,11 +29,15 @@ const SwipeableStack = ({ projects, onReact }: SwipeableStackProps) => {
       } else if (info.offset.y > 0 && currentIndex > 0) {
         // Swiped down - previous project
         setDirection('down');
+        y.set(0); // Reset position
         setTimeout(() => {
           setCurrentIndex(currentIndex - 1);
           setDirection(null);
         }, 300);
       }
+    } else {
+      // Snap back if threshold not met
+      y.set(0);
     }
   };
 
@@ -42,7 +47,8 @@ const SwipeableStack = ({ projects, onReact }: SwipeableStackProps) => {
     <div className="relative w-full h-full max-w-2xl mx-auto">
       <motion.div
         drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={0.2}
+        dragConstraints={{ top: -200, bottom: 200 }}
         onDragEnd={handleDragEnd}
         style={{ y, opacity }}
         animate={
@@ -54,7 +60,7 @@ const SwipeableStack = ({ projects, onReact }: SwipeableStackProps) => {
             : { y: 0, opacity: 1 }
         }
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="w-full h-full touch-none"
+        className="w-full h-full cursor-grab active:cursor-grabbing"
       >
         <ProjectCard project={currentProject} onReact={onReact} />
       </motion.div>
