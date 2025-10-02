@@ -79,7 +79,7 @@ const Index = () => {
       )}
 
       {/* Main Feed */}
-      <main className="relative z-10 h-[calc(100vh-120px)] px-4 pb-8">
+      <main className="relative z-10 h-[calc(100vh-120px)]">
         <SwipeableStack projects={projects} onReact={handleReact} />
       </main>
 

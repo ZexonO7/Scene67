@@ -44,11 +44,11 @@ const SwipeableStack = ({ projects, onReact }: SwipeableStackProps) => {
   const currentProject = projects[currentIndex];
 
   return (
-    <div className="relative w-full h-full max-w-2xl mx-auto">
+    <div className="relative w-full h-full">
       <motion.div
         drag="y"
-        dragElastic={0.2}
-        dragConstraints={{ top: -200, bottom: 200 }}
+        dragElastic={0.3}
+        dragConstraints={{ top: -300, bottom: 300 }}
         onDragEnd={handleDragEnd}
         style={{ y, opacity }}
         animate={
@@ -60,13 +60,13 @@ const SwipeableStack = ({ projects, onReact }: SwipeableStackProps) => {
             : { y: 0, opacity: 1 }
         }
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="w-full h-full cursor-grab active:cursor-grabbing"
+        className="w-full h-full cursor-grab active:cursor-grabbing touch-none"
       >
         <ProjectCard project={currentProject} onReact={onReact} />
       </motion.div>
       
-      {/* Swipe Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
+      {/* Swipe Indicator - Bottom */}
+      <div className="absolute bottom-32 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
         <motion.div
           animate={{
             y: [0, -10, 0],
@@ -77,21 +77,21 @@ const SwipeableStack = ({ projects, onReact }: SwipeableStackProps) => {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="text-foreground/50 text-sm font-display"
+          className="text-white/60 text-xs font-semibold drop-shadow-lg"
         >
-          ↑ Swipe for next project ↑
+          ↑ SWIPE UP ↑
         </motion.div>
       </div>
       
-      {/* Progress Indicator */}
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 flex gap-2">
+      {/* Progress Indicator - Top */}
+      <div className="absolute top-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
         {projects.map((_, index) => (
           <div
             key={index}
-            className={`h-1 rounded-full transition-all ${
+            className={`h-0.5 rounded-full transition-all ${
               index === currentIndex
-                ? 'w-8 gradient-sunset'
-                : 'w-1 bg-foreground/20'
+                ? 'w-6 bg-white'
+                : 'w-6 bg-white/30'
             }`}
           />
         ))}

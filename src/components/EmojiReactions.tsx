@@ -29,34 +29,29 @@ const EmojiReactions = ({ reactions, onReact }: EmojiReactionsProps) => {
     });
   };
 
+  const formatCount = (count: number) => {
+    if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M`;
+    if (count >= 1000) return `${(count / 1000).toFixed(1)}K`;
+    return count.toString();
+  };
+
   return (
-    <div className="flex justify-around items-center gap-4 px-6 py-4 bg-card/50 backdrop-blur-md rounded-3xl border-2 border-border/40 shadow-[6px_6px_0px_0px_rgba(0,0,0,0.1)]" style={{
-      borderRadius: `${25 + Math.random() * 8}px ${28 + Math.random() * 8}px ${26 + Math.random() * 8}px ${24 + Math.random() * 8}px`
-    }}>
-      {(Object.keys(reactionEmojis) as ReactionType[]).map((type, index) => (
+    <div className="flex flex-col gap-4">
+      {(Object.keys(reactionEmojis) as ReactionType[]).map((type) => (
         <motion.button
           key={type}
-          whileHover={{ scale: 1.2, rotate: Math.random() * 20 - 10 }}
-          whileTap={{ scale: 0.9, rotate: Math.random() * -20 + 10 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           onClick={() => handleReaction(type)}
           className="flex flex-col items-center gap-1"
-          style={{ transform: `rotate(${(index % 2 === 0 ? 1 : -1) * Math.random() * 3}deg)` }}
         >
-          <motion.span
-            className="text-3xl"
-            animate={{
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              repeatDelay: Math.random() * 2,
-            }}
-          >
-            {reactionEmojis[type]}
-          </motion.span>
-          <span className="text-xs font-bold text-foreground/80">
-            {reactions[type]}
+          <div className="w-12 h-12 rounded-full bg-muted/80 backdrop-blur-sm flex items-center justify-center">
+            <span className="text-2xl">
+              {reactionEmojis[type]}
+            </span>
+          </div>
+          <span className="text-xs font-bold text-white drop-shadow-lg">
+            {formatCount(reactions[type])}
           </span>
         </motion.button>
       ))}
