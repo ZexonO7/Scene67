@@ -4,6 +4,7 @@ import EmojiReactions from './EmojiReactions';
 import { Sparkles, GitFork } from 'lucide-react';
 import { Button } from './ui/button';
 import confetti from 'canvas-confetti';
+import { useNavigate } from 'react-router-dom';
 
 interface ProjectCardProps {
   project: Project;
@@ -11,6 +12,8 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, onReact }: ProjectCardProps) => {
+  const navigate = useNavigate();
+  
   const handleRemix = () => {
     confetti({
       particleCount: 100,
@@ -78,7 +81,8 @@ const ProjectCard = ({ project, onReact }: ProjectCardProps) => {
           <motion.div
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            className="flex items-center gap-2"
+            onClick={() => navigate(`/profile/${project.creator}`)}
+            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
           >
             <img
               src={project.creatorAvatar}

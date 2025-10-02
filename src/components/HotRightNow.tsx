@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Flame, X } from 'lucide-react';
 import { Project } from '@/types/project';
+import { useNavigate } from 'react-router-dom';
 
 interface HotRightNowProps {
   projects: Project[];
@@ -8,6 +9,7 @@ interface HotRightNowProps {
 }
 
 const HotRightNow = ({ projects, onClose }: HotRightNowProps) => {
+  const navigate = useNavigate();
   const topProjects = projects.filter(p => p.isTrending).slice(0, 3);
 
   return (
@@ -39,6 +41,7 @@ const HotRightNow = ({ projects, onClose }: HotRightNowProps) => {
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: index * 0.1 }}
+            onClick={() => navigate(`/profile/${project.creator}`)}
             className="flex items-center gap-3 p-3 rounded-2xl bg-muted/50 hover:bg-muted/80 transition-colors cursor-pointer group"
           >
             <div className="relative">
