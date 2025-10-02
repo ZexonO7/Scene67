@@ -7,6 +7,7 @@ import { Waves } from 'lucide-react';
 
 const Index = () => {
   const [projects, setProjects] = useState(mockProjects);
+  const [showHotRightNow, setShowHotRightNow] = useState(true);
 
   const handleReact = (projectId: string, reactionType: string) => {
     setProjects(projects.map(project => {
@@ -73,7 +74,9 @@ const Index = () => {
       </motion.header>
 
       {/* Hot Right Now Sidebar */}
-      <HotRightNow projects={projects} />
+      {showHotRightNow && (
+        <HotRightNow projects={projects} onClose={() => setShowHotRightNow(false)} />
+      )}
 
       {/* Main Feed */}
       <main className="relative z-10 h-[calc(100vh-120px)] px-4 pb-8">

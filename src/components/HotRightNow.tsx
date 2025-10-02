@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
-import { Flame } from 'lucide-react';
+import { Flame, X } from 'lucide-react';
 import { Project } from '@/types/project';
 
 interface HotRightNowProps {
   projects: Project[];
+  onClose: () => void;
 }
 
-const HotRightNow = ({ projects }: HotRightNowProps) => {
+const HotRightNow = ({ projects, onClose }: HotRightNowProps) => {
   const topProjects = projects.filter(p => p.isTrending).slice(0, 3);
 
   return (
@@ -16,11 +17,20 @@ const HotRightNow = ({ projects }: HotRightNowProps) => {
       className="fixed left-4 top-1/2 -translate-y-1/2 z-50 hidden lg:block"
     >
       <div className="space-y-4 p-6 rounded-3xl bg-card/80 backdrop-blur-xl border border-border/50 shadow-2xl max-w-xs">
-        <div className="flex items-center gap-2 mb-4">
-          <Flame className="w-6 h-6 text-primary animate-pulse-glow" />
-          <h3 className="font-display font-bold text-xl text-glow-orange">
-            HOT RIGHT NOW
-          </h3>
+        <div className="flex items-center gap-2 mb-4 justify-between">
+          <div className="flex items-center gap-2">
+            <Flame className="w-6 h-6 text-primary animate-pulse-glow" />
+            <h3 className="font-display font-bold text-xl text-glow-orange">
+              HOT RIGHT NOW
+            </h3>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-muted rounded-full transition-colors"
+            aria-label="Close"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
         
         {topProjects.map((project, index) => (
