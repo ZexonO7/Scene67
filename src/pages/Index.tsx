@@ -26,9 +26,8 @@ const Index = () => {
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      {/* Animated Background */}
+      {/* Beach-themed Animated Background */}
       <div className="absolute inset-0 bg-background">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 animate-pulse" />
         <motion.div
           animate={{
             backgroundPosition: ['0% 0%', '100% 100%'],
@@ -38,15 +37,15 @@ const Index = () => {
             repeat: Infinity,
             repeatType: 'reverse',
           }}
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-20"
           style={{
-            backgroundImage: 'radial-gradient(circle at 20% 50%, hsl(18 100% 60% / 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, hsl(330 100% 60% / 0.3) 0%, transparent 50%), radial-gradient(circle at 40% 20%, hsl(195 100% 50% / 0.3) 0%, transparent 50%)',
+            backgroundImage: 'radial-gradient(circle at 20% 50%, hsl(185 65% 55% / 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 80%, hsl(15 85% 65% / 0.3) 0%, transparent 50%), radial-gradient(circle at 40% 20%, hsl(155 45% 55% / 0.3) 0%, transparent 50%)',
             backgroundSize: '100% 100%',
           }}
         />
       </div>
 
-      {/* Header */}
+      {/* Scrapbook Header */}
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -56,21 +55,21 @@ const Index = () => {
           <motion.div
             animate={{ rotate: [0, -10, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="text-5xl"
           >
-            <Waves className="w-8 h-8 text-secondary" />
+            🏖️
           </motion.div>
-          <h1 className="font-display font-bold text-4xl md:text-5xl text-primary text-glow-orange" style={{
-            transform: 'rotate(-1deg)',
-            textShadow: '3px 3px 0px rgba(0,0,0,0.1)'
-          }}>
-            ScrapTok
-          </h1>
+          <div className="paper-torn bg-card px-6 py-3 rounded-sm rotate-[-1deg] shadow-md">
+            <h1 className="font-bold text-4xl md:text-5xl text-primary text-handwritten" style={{
+              textShadow: '3px 3px 0px hsl(15 85% 65% / 0.2)'
+            }}>
+              ScrapTok
+            </h1>
+            <p className="text-center text-muted-foreground mt-1 text-typewriter tracking-wide">
+              ☀️ ride the summer of making ☀️
+            </p>
+          </div>
         </div>
-        <p className="text-center text-foreground/70 mt-2 font-display tracking-wide" style={{
-          transform: 'rotate(0.5deg)'
-        }}>
-          ride the summer of making 🌊✨
-        </p>
       </motion.header>
 
       {/* Hot Right Now Sidebar */}
@@ -83,20 +82,20 @@ const Index = () => {
         <SwipeableStack projects={projects} onReact={handleReact} />
       </main>
 
-      {/* Floating Decorations */}
+      {/* Beach Decorations */}
       <motion.div
         animate={{
-          y: [0, -20, 0],
-          rotate: [0, 10, 0],
+          y: [0, -15, 0],
+          rotate: [0, 5, 0],
         }}
         transition={{
           duration: 3,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        className="absolute top-1/4 right-12 text-6xl opacity-30 pointer-events-none hidden lg:block"
+        className="absolute top-1/4 right-12 text-7xl opacity-40 pointer-events-none hidden lg:block animate-wave"
       >
-        🏄
+        🌊
       </motion.div>
       
       <motion.div
@@ -117,8 +116,8 @@ const Index = () => {
       
       <motion.div
         animate={{
-          y: [0, -15, 0],
-          rotate: [0, 15, 0],
+          y: [0, -10, 0],
+          x: [0, 5, 0],
         }}
         transition={{
           duration: 3.5,
@@ -126,9 +125,39 @@ const Index = () => {
           ease: 'easeInOut',
           delay: 0.5,
         }}
-        className="absolute top-1/3 right-1/4 text-5xl opacity-20 pointer-events-none hidden lg:block"
+        className="absolute top-1/3 right-1/4 text-5xl opacity-25 pointer-events-none hidden lg:block"
       >
-        🥥
+        🐚
+      </motion.div>
+      
+      <motion.div
+        animate={{
+          rotate: [0, 360],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+        className="absolute top-1/2 left-12 text-6xl opacity-30 pointer-events-none hidden lg:block"
+      >
+        ☀️
+      </motion.div>
+      
+      <motion.div
+        animate={{
+          y: [0, -20, 0],
+          rotate: [0, 10, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 1.5,
+        }}
+        className="absolute bottom-1/3 left-1/4 text-5xl opacity-25 pointer-events-none hidden lg:block"
+      >
+        🌴
       </motion.div>
     </div>
   );

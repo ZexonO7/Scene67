@@ -25,32 +25,39 @@ const ProjectCard = ({ project, onReact }: ProjectCardProps) => {
   
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.95, rotate: -1 }}
+      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+      exit={{ opacity: 0, scale: 0.95, rotate: 1 }}
       className="relative w-full h-full"
     >
-      {/* Full-screen Media */}
-      <div className="relative w-full h-full overflow-hidden">
+      {/* Scrapbook Frame */}
+      <div className="relative w-full h-full overflow-hidden paper-torn rounded-sm">
         <img
           src={project.mediaUrl}
           alt={project.title}
           className="w-full h-full object-cover"
+          style={{
+            filter: 'contrast(1.05) saturate(1.1)',
+          }}
         />
         
-        {/* Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20" />
+        {/* Scrapbook-style Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-background/30" />
         
-        {/* Trending Badge - Top Left */}
+        {/* Decorative tape on corners */}
+        <div className="absolute top-4 left-4 w-16 h-8 bg-[hsl(50_30%_85%/0.8)] rotate-[-15deg] shadow-sm"></div>
+        <div className="absolute top-4 right-4 w-16 h-8 bg-[hsl(50_30%_85%/0.8)] rotate-[15deg] shadow-sm"></div>
+        
+        {/* Trending Badge - Top Left with Scrapbook Style */}
         {project.isTrending && (
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/90 backdrop-blur-sm"
+            initial={{ scale: 0, rotate: -5 }}
+            animate={{ scale: 1, rotate: 0 }}
+            className="absolute top-12 left-12 flex items-center gap-1.5 px-4 py-2 bg-accent paper-torn rotate-[-3deg] z-10"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span className="font-bold text-xs">TRENDING</span>
+            <Sparkles className="w-4 h-4" />
+            <span className="font-bold text-sm text-handwritten">HOT! 🔥</span>
           </motion.div>
         )}
         
@@ -61,51 +68,51 @@ const ProjectCard = ({ project, onReact }: ProjectCardProps) => {
             onReact={(type) => onReact(project.id, type)}
           />
           
-          {/* Remix Button */}
+          {/* Remix Button with Scrapbook Style */}
           <motion.button
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.9 }}
             onClick={handleRemix}
             className="flex flex-col items-center gap-1 p-2"
           >
-            <div className="w-12 h-12 rounded-full bg-muted/80 backdrop-blur-sm flex items-center justify-center">
-              <GitFork className="w-5 h-5" />
+            <div className="w-12 h-12 rounded-sm bg-card paper-torn flex items-center justify-center rotate-[-2deg] border-2 border-foreground/20">
+              <GitFork className="w-5 h-5 text-foreground" />
             </div>
-            <span className="text-xs font-semibold">Remix</span>
+            <span className="text-xs font-bold text-handwritten">Remix</span>
           </motion.button>
         </div>
         
         {/* Bottom Info */}
         <div className="absolute bottom-0 left-0 right-0 p-4 pb-6 space-y-3">
-          {/* Creator */}
+          {/* Creator with Scrapbook Style */}
           <motion.div
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             onClick={() => navigate(`/profile/${project.creator}`)}
-            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+            className="flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform bg-card/90 px-3 py-2 rounded-sm paper-torn rotate-[1deg]"
           >
             <img
               src={project.creatorAvatar}
               alt={project.creator}
-              className="w-10 h-10 rounded-full border-2 border-white"
+              className="w-12 h-12 rounded-sm border-3 border-foreground rotate-[-3deg] shadow-md"
             />
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-white">@{project.creator}</p>
-              <p className="text-xs text-white/70">{project.timestamp}</p>
+              <p className="font-bold text-foreground text-lg">@{project.creator}</p>
+              <p className="text-xs text-muted-foreground text-typewriter">{project.timestamp}</p>
             </div>
           </motion.div>
           
-          {/* Title & Description */}
+          {/* Title & Description with Handwritten Style */}
           <motion.div
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="space-y-1 pr-16"
+            className="space-y-2 pr-16 bg-card/95 p-3 rounded-sm paper-torn rotate-[-0.5deg]"
           >
-            <h2 className="font-bold text-lg text-white leading-tight">
+            <h2 className="font-bold text-2xl text-foreground leading-tight text-handwritten">
               {project.title}
             </h2>
-            <p className="text-sm text-white/90 leading-snug line-clamp-2">
+            <p className="text-base text-foreground/80 leading-relaxed line-clamp-2">
               {project.description}
             </p>
           </motion.div>

@@ -40,17 +40,17 @@ const EmojiReactions = ({ reactions, onReact }: EmojiReactionsProps) => {
       {(Object.keys(reactionEmojis) as ReactionType[]).map((type) => (
         <motion.button
           key={type}
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.15, rotate: 5 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => handleReaction(type)}
-          className="flex flex-col items-center gap-1"
+          className="flex flex-col items-center gap-1 group"
         >
-          <div className="w-12 h-12 rounded-full bg-muted/80 backdrop-blur-sm flex items-center justify-center">
+          <div className="w-12 h-12 rounded-sm bg-card paper-torn flex items-center justify-center border-2 border-foreground/20 rotate-[-2deg] group-hover:rotate-[2deg] transition-transform">
             <span className="text-2xl">
               {reactionEmojis[type]}
             </span>
           </div>
-          <span className="text-xs font-bold text-white drop-shadow-lg">
+          <span className="text-sm font-bold text-foreground text-handwritten bg-card/90 px-2 py-0.5 rounded-sm">
             {formatCount(reactions[type])}
           </span>
         </motion.button>
